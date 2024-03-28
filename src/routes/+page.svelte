@@ -175,26 +175,6 @@
 			/>
 			<label for="scales">Exponential</label>
 		</div>
-
-		<div>
-			<input
-				type="checkbox"
-				id="log"
-				name="log"
-				checked={$data.method === "log"}
-			/>
-			<label for="scales">Log</label>
-		</div>
-
-		<div>
-			<input
-				type="checkbox"
-				id="sCurve"
-				name="sCurve"
-				checked={$data.method === "sCurve"}
-			/>
-			<label for="scales">S-Curve</label>
-		</div>
 	</fieldset>
 
 	{#if showButtons}
