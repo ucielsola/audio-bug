@@ -1,6 +1,8 @@
 <script>
 	import { writable } from "svelte/store";
 
+	const MIN_GAIN = 0.00001;
+
 	const data = writable({
 		method: "linear",
 		duration: undefined,
@@ -51,7 +53,7 @@
 			showButtons = true;
 		});
 
-		output.gain.value = 0;
+		output.gain.value = MIN_GAIN;
 	}
 
 	function play() {
@@ -93,22 +95,24 @@
 		const currentGain = output.gain.value;
 
 		output.gain.linearRampToValueAtTime(currentGain, start);
-		output.gain.linearRampToValueAtTime(0.01, end);
+		output.gain.linearRampToValueAtTime(MIN_GAIN, end);
 	}
 
 	function linearFadeIn() {
 		let start = context.currentTime;
 		let end = start + 5;
+		const currentGain = output.gain.value;
 
-		output.gain.linearRampToValueAtTime(0.1, start);
+		output.gain.linearRampToValueAtTime(currentGain, start);
 		output.gain.linearRampToValueAtTime(1, end);
 	}
 
 	function exponentialFadeIn() {
 		let start = context.currentTime;
 		let end = start + 5;
+		const currentGain = output.gain.value;
 
-		output.gain.exponentialRampToValueAtTime(0, start);
+		output.gain.exponentialRampToValueAtTime(currentGain, start);
 		output.gain.exponentialRampToValueAtTime(1, end);
 	}
 
@@ -118,7 +122,7 @@
 		const currentGain = output.gain.value;
 
 		output.gain.exponentialRampToValueAtTime(currentGain, start);
-		output.gain.exponentialRampToValueAtTime(0.01, end);
+		output.gain.exponentialRampToValueAtTime(MIN_GAIN, end);
 	}
 
 	function updateData() {
